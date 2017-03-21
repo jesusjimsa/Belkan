@@ -3,7 +3,7 @@
 El método *think* comienza con Belkan parado. Se comprueba qué se hizo en la ejecución
 anterior y se actualizan los sensores, después se decide cuál será la siguiente acción.
 En el constructor, al empezar, se pone *mapaResultado* con todas las celdas a ’T’,
-suponiendo que todo es tierra..
+suponiendo que todo es tierra.
 
 ## Actualización
 Si avanzó, se actualizan fila o columna.
