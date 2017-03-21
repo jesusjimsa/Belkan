@@ -1,0 +1,80 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/jesusjimsa/Dropbox/Documentos/Universidad/2 - Segundo cuatrimestre/Inteligencia Artificial/Prácticas/Práctica 1/material/Comportamientos_Jugador/aldeano.cpp
+../Comportamientos_Jugador/aldeano.hpp
+/home/jesusjimsa/Dropbox/Documentos/Universidad/2 - Segundo cuatrimestre/Inteligencia Artificial/Prácticas/Práctica 1/material/Comportamientos_Jugador/aldeano.hpp
+
+/home/jesusjimsa/Dropbox/Documentos/Universidad/2 - Segundo cuatrimestre/Inteligencia Artificial/Prácticas/Práctica 1/material/Comportamientos_Jugador/aldeano.hpp
+comportamientos/comportamiento.hpp
+/home/jesusjimsa/Dropbox/Documentos/Universidad/2 - Segundo cuatrimestre/Inteligencia Artificial/Prácticas/Práctica 1/material/Comportamientos_Jugador/comportamientos/comportamiento.hpp
+
+/home/jesusjimsa/Dropbox/Documentos/Universidad/2 - Segundo cuatrimestre/Inteligencia Artificial/Prácticas/Práctica 1/material/Comportamientos_Jugador/jugador.cpp
+../Comportamientos_Jugador/jugador.hpp
+/home/jesusjimsa/Dropbox/Documentos/Universidad/2 - Segundo cuatrimestre/Inteligencia Artificial/Prácticas/Práctica 1/material/Comportamientos_Jugador/jugador.hpp
+iostream
+-
+stdlib.h
+-
+queue
+-
+
+/home/jesusjimsa/Dropbox/Documentos/Universidad/2 - Segundo cuatrimestre/Inteligencia Artificial/Prácticas/Práctica 1/material/Comportamientos_Jugador/jugador.hpp
+comportamientos/comportamiento.hpp
+/home/jesusjimsa/Dropbox/Documentos/Universidad/2 - Segundo cuatrimestre/Inteligencia Artificial/Prácticas/Práctica 1/material/Comportamientos_Jugador/comportamientos/comportamiento.hpp
+queue
+-
+stdlib.h
+-
+
+/home/jesusjimsa/Dropbox/Documentos/Universidad/2 - Segundo cuatrimestre/Inteligencia Artificial/Prácticas/Práctica 1/material/Comportamientos_Jugador/perro.cpp
+../Comportamientos_Jugador/perro.hpp
+/home/jesusjimsa/Dropbox/Documentos/Universidad/2 - Segundo cuatrimestre/Inteligencia Artificial/Prácticas/Práctica 1/material/Comportamientos_Jugador/perro.hpp
+iostream
+-
+stdlib.h
+-
+
+/home/jesusjimsa/Dropbox/Documentos/Universidad/2 - Segundo cuatrimestre/Inteligencia Artificial/Prácticas/Práctica 1/material/Comportamientos_Jugador/perro.hpp
+comportamientos/comportamiento.hpp
+/home/jesusjimsa/Dropbox/Documentos/Universidad/2 - Segundo cuatrimestre/Inteligencia Artificial/Prácticas/Práctica 1/material/Comportamientos_Jugador/comportamientos/comportamiento.hpp
+
+/home/jesusjimsa/Dropbox/Documentos/Universidad/2 - Segundo cuatrimestre/Inteligencia Artificial/Prácticas/Práctica 1/material/src/comportamientos/comportamiento.cpp
+comportamientos/comportamiento.hpp
+/home/jesusjimsa/Dropbox/Documentos/Universidad/2 - Segundo cuatrimestre/Inteligencia Artificial/Prácticas/Práctica 1/material/src/comportamientos/comportamientos/comportamiento.hpp
+iostream
+-
+
+/home/jesusjimsa/Dropbox/Documentos/Universidad/2 - Segundo cuatrimestre/Inteligencia Artificial/Prácticas/Práctica 1/material/src/comportamientos/objeto.cpp
+comportamientos/objeto.hpp
+/home/jesusjimsa/Dropbox/Documentos/Universidad/2 - Segundo cuatrimestre/Inteligencia Artificial/Prácticas/Práctica 1/material/src/comportamientos/comportamientos/objeto.hpp
+random
+-
+iostream
+-
+
+/home/jesusjimsa/Dropbox/Documentos/Universidad/2 - Segundo cuatrimestre/Inteligencia Artificial/Prácticas/Práctica 1/material/src/comportamientos/puerta.cpp
+comportamientos/puerta.hpp
+/home/jesusjimsa/Dropbox/Documentos/Universidad/2 - Segundo cuatrimestre/Inteligencia Artificial/Prácticas/Práctica 1/material/src/comportamientos/comportamientos/puerta.hpp
+random
+-
+iostream
+-
+
+include/comportamientos/comportamiento.hpp
+vector
+-
+
+include/comportamientos/objeto.hpp
+comportamientos/comportamiento.hpp
+include/comportamientos/comportamientos/comportamiento.hpp
+
+include/comportamientos/puerta.hpp
+comportamientos/comportamiento.hpp
+include/comportamientos/comportamientos/comportamiento.hpp
+
