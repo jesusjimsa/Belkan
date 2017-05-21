@@ -396,3 +396,207 @@ teniendo ‘_’ cuando no hay ninguno.
 - *mochila*: determina qué objetos hay guardados en la mochila.
 - *ultimaAccion*: determina cuál fue la última acción realizada por Belkan para poder
 actualizar la situación de éste.
+
+# Los extraños mundos de Belkan II
+
+Para empezar, comenzaré con la explicación de los cambios realizados a la parte que se
+entregó en la práctica anterior. Más adelante pasaré a explicar el método deliberativo, su
+algoritmo y los métodos auxiliares asociados a él.
+
+## Cambios introducidos
+Lo más importante en esta parte (que se centra especialmente en el método think) es toda
+la parte relacionada con la ejecución de los planes.
+Lo primero que hace con los planes, si nos guiamos por el orden en el que está escrito, es
+que si hay un obstáculo (un objeto, un aldeano o un lobo) modifique el plan en lo
+necesario para adaptarse a la situación. Lo siguiente que se hace con los planes es
+generarlos, éstos son generados tanto para buscar reyes como para buscar regalos. La
+búsqueda de regalos solo se hará si no tiene ningún regalo, no está ejecutando ningún
+plan y, por supuesto, si tiene algún conocimiento de su entorno. La de reyes se hace de
+una forma similar, solo la hará cuando tenga regalos, no esté ejecutando ningún plan,
+tenga conocimiento del entorno y que entre ese conocimiento esté la posición de un rey.
+Lo último relacionado con los planes de este método es la ejecución.
+A parte de los planes, el otro cambio en el método think ha sido que ya no busca objetos
+ni puertas, solo puntos de GPS.
+En reiniciar también ha habido un cambio significativo, a parte de la reinicialización de las
+nuevas variables introducidas. En esta práctica, cuando se entre en reiniciar por última
+vez comprueba el mapa y si hay un elemento que predomine en más de un 75%, pintará
+el resto del mapa que no haya sido descubierto a ese mismo color.
+Finalmente, el último cambio viene en el método Buscar, que ahora hace uso de los
+planes y ha extendido su capacidad a todos los sensores de Belkan.
+
+## pathFinding
+Para el método pathFinding se ha utilizado el algoritmo de búsqueda con información A*.
+Este algoritmo se basa en consultar el coste que presenta viajar desde un nodo hasta el
+destino. El coste se basa en una heurística que cuenta las casillas que hay que andar
+para llegar a destino.
+Primero guardamos el nodo con menor coste en cerrados (la lista con la solución) y lo
+borramos de abiertos (la lista de nodos posibles). A continuación asignamos el coste a los
+nodos vecinos y comprobamos si son candidatos para entrar en abiertos, esto sucede
+cuando no están en ninguna de las dos listas y a la vez son transitables.
+A la vez, se va generando una lista de acciones que terminará siendo el plan que seguirá
+Belkan para llegar a su destino por el camino más óptimo posible.
+
+```C++
+bool ComportamientoJugador::pathFinding(const estado &origen, const estado &destino, list<Action> &plan){
+	list< Nodo > abiertosLista, cerrados;
+	priority_queue< Nodo, vector<Nodo>, functorNodo> abiertos;
+	list< Nodo > vecinos;	//izquierda, delante y derecha
+	list< Action > chachiGuay;
+	Nodo insercion;
+	Nodo current;
+	Nodo original, target;
+	estado moverDer, moverDel, moverIzq;
+	char queHay[3];		//0 -> izquierda; 1 -> delante; 2 -> derecha
+	int costeG, costeH;
+
+	//Borro la lista
+	plan.clear();
+
+	//Insertar nodo incial en abiertos
+	original.setEstado(origen);
+	original.setCosteF(0);
+	original.setCosteG(0);
+	original.setCosteH(0);
+
+	abiertos.push(original);
+	abiertosLista.push_back(original);
+
+	//Crear un nodo para el destino
+	target.setEstado(destino);
+
+	//Comienza el algoritmo A*
+	while(!abiertos.empty()){
+		current.setEstado(abiertos.top().getEstado());
+		current.setCosteF(abiertos.top().getCosteF());
+		current.setCosteH(abiertos.top().getCosteH());
+		current.setCosteG(abiertos.top().getCosteG());
+		
+		list<Action> caminoNuevoCerrado = abiertos.top().getCamino();
+
+		abiertosLista.erase(find(abiertosLista.begin(), abiertosLista.end(), abiertos.top()));
+
+		abiertos.pop();
+
+		//Guardamos su camino en la lista chachiGuay
+		for(int i = 0; !caminoNuevoCerrado.empty(); i++){
+			chachiGuay.push_back(caminoNuevoCerrado.front());
+			caminoNuevoCerrado.pop_front();
+		}
+
+		//Guardamos current en cerrados y lo borramos de abiertos
+		cerrados.push_back(current);
+
+		if(current.getFila() == destino.fila && current.getColumna() == destino.columna){
+			/*
+				Como en el bucle las acciones se hacen para colocarse encima de la
+				casilla de destino, después de darle la vuelta al plan, le borramos
+				la última acción, que siempre será actFORWARD (aunque esto no tiene
+				nada que ver)
+			*/
+
+			plan = chachiGuay;
+
+			if(!plan.empty()){
+				plan.pop_back();
+			}
+
+			return true;		//Si hemos llegado a destino, salimos del bucle, es decir, hay un camino
+		}
+
+		//Comprueba qué hay en cada nodo visitable para asignarle el coste más adelante
+		switch(current.getBrujula()){
+			case 0:
+				...
+			case 1:
+				...
+			case 2:
+				...
+			case 3:
+				...
+		}
+
+		//Asigno los costes
+		vecinos.clear();
+		for(int i = 0; i < 3; i++){
+			switch(i){
+				case 0:
+					insercion.setEstado(moverIzq);
+
+					insercion.addAccion(actTURN_L);
+					insercion.addAccion(actFORWARD);
+
+					costeG = 20;
+
+					break;
+				case 1:
+					insercion.setEstado(moverDel);
+
+					insercion.addAccion(actFORWARD);
+
+					costeG = 10;
+
+					break;
+				case 2:
+					insercion.setEstado(moverDer);
+
+					insercion.addAccion(actTURN_R);
+					insercion.addAccion(actFORWARD);
+
+					costeG = 20;
+
+					break;
+			}
+
+			switch(queHay[i]){
+				case 'A':	//Agua
+				case 'B':	//Bosque
+				case 'P':	//Precipicio
+				case 'M':	//Muro
+				case 'D':	//Puerta
+				case '?':	//Inexplorado
+					costeG = 5000;
+					
+					break;
+				//El resto de casos (cuando es sencillo caminar por el terreno)
+				//se ha hecho ya en el switch anterior
+			}			
+
+
+			costeH = distanciaNodos(original, insercion);
+
+			insercion.setCosteG(costeG);
+			insercion.setCosteH(costeH);
+			insercion.setCosteF(costeG + costeH);
+			
+			vecinos.push_back(insercion);
+
+		}
+
+		//Aquí viene la chicha del algoritmo
+		for(auto it = vecinos.begin(); it != vecinos.end(); ++it){
+				//La casilla es transitable							//La casilla no está en cerrados
+			if((*it).getCosteG() < 5000 && find(cerrados.begin(), cerrados.end(), (*it)) == cerrados.end()){
+				int nuevoMovimientoVecino = current.getCosteG() + distanciaNodos(current, (*it));
+				auto estaEnAb = find(abiertosLista.begin(), abiertosLista.end(), (*it));	//Para comprobar si está ya en abiertosLista
+
+						//Cuesta menos llegar así					//No está en abiertos
+				if(nuevoMovimientoVecino < (*it).getCosteG() || estaEnAb == abiertosLista.end()){
+					// (*it).setCosteG(nuevoMovimientoVecino);
+					// (*it).setCosteH(distanciaNodos((*it), target));
+
+					if(estaEnAb == abiertosLista.end()){
+						abiertos.push(*it);
+						abiertosLista.push_back(*it);
+					}
+				}
+			}
+		}
+	}
+
+	return false;	//No ha conseguido encontrar un camino al rey
+}
+```
+
+# Nota obtenida en ambas prácticas
+- Belkan reactivo: 9,5 / 10
+- Belkan deliberativo: 6,5 / 10
