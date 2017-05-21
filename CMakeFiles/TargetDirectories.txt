@@ -1,9 +1,0 @@
-/home/jesusjimsa/Dropbox/Documentos/Universidad/2 - Segundo cuatrimestre/Inteligencia Artificial/Prácticas/Práctica 1/material/CMakeFiles/BelkanSG.dir
-/home/jesusjimsa/Dropbox/Documentos/Universidad/2 - Segundo cuatrimestre/Inteligencia Artificial/Prácticas/Práctica 1/material/CMakeFiles/Belkan.dir
-/home/jesusjimsa/Dropbox/Documentos/Universidad/2 - Segundo cuatrimestre/Inteligencia Artificial/Prácticas/Práctica 1/material/CMakeFiles/rebuild_cache.dir
-/home/jesusjimsa/Dropbox/Documentos/Universidad/2 - Segundo cuatrimestre/Inteligencia Artificial/Prácticas/Práctica 1/material/CMakeFiles/motorLib.dir
-/home/jesusjimsa/Dropbox/Documentos/Universidad/2 - Segundo cuatrimestre/Inteligencia Artificial/Prácticas/Práctica 1/material/CMakeFiles/obj3DLib.dir
-/home/jesusjimsa/Dropbox/Documentos/Universidad/2 - Segundo cuatrimestre/Inteligencia Artificial/Prácticas/Práctica 1/material/CMakeFiles/edit_cache.dir
-/home/jesusjimsa/Dropbox/Documentos/Universidad/2 - Segundo cuatrimestre/Inteligencia Artificial/Prácticas/Práctica 1/material/CMakeFiles/GLUILib.dir
-/home/jesusjimsa/Dropbox/Documentos/Universidad/2 - Segundo cuatrimestre/Inteligencia Artificial/Prácticas/Práctica 1/material/CMakeFiles/modelosBelkanLib.dir
-/home/jesusjimsa/Dropbox/Documentos/Universidad/2 - Segundo cuatrimestre/Inteligencia Artificial/Prácticas/Práctica 1/material/CMakeFiles/comportamientosLib.dir
