@@ -6,49 +6,50 @@ En el constructor, al empezar, se pone *mapaResultado* con todas las celdas a �
 suponiendo que todo es tierra.
 
 ## Actualización
-Si avanzó, se actualizan fila o columna.
+Si avanzó, se actualizan fila o columna.  
 Si giró, se actualiza hacia dónde y se decida hacia dónde se girará la próxima vez de
-forma aleatoria.
+forma aleatoria.  
 Y si hizo alguna acción relacionada con deshacerse de objetos, se actualizarán las
 variables auxiliares que controlan la mochila y el objeto activo.
 
 ## Decisión
 A continuación, después de actualizar la situación de Belkan, se pasa a decidir la
-siguiente acción.
+siguiente acción.  
 Primero se comprueba que la variable de giro aleatorio no haya llegado a cero, si se da el
 caso de que no se haya chocado con nada ni nadie y la variable haya llegado a cero,
 Belkan girará. En el caso en el que vaya avanzando justo al lado de un precipicio, siempre
-girará hacia el lado correcto, ahorrando así algo de vida.
+girará hacia el lado correcto, ahorrando así algo de vida.  
 A continuación, si lo que tiene delante es terreno o superficie, Belkan avanzará. Si no,
-comprobará si tiene que girar o si tiene que usar un objeto.
+comprobará si tiene que girar o si tiene que usar un objeto.  
 
 ## Objetos
 Si se encuentra de frente con un lobo y tiene un hueso como objeto activo, se le dará a
-este.
+este.  
 En el resto de casos de uso de los objetos, se comprueba si se tiene activo el objeto, si no
 es así, Belkan busca en la mochila y si está empezará a tirar objetos hasta que salga el
-deseado.
+deseado.  
 Cuando se encuentre con un bosque, usará las zapatillas; cuando se encuentre con agua,
-usará el bikini; y cuando se encuentre con una puerta, usará la llave.
+usará el bikini; y cuando se encuentre con una puerta, usará la llave.  
 
 ## Actualización del mapa
 El mapa se irá guardando en *mapaResultado*, recibiendo la información de todos los
-sensores, una vez que haya pasado por una casilla de GPS.
+sensores, una vez que haya pasado por una casilla de GPS.  
 Estas casillas, si no las ha encontrado ya, serán buscadas por Belkan. Cuando una casilla
 de GPS entra en los sensores de terreno 1, 3, 5, 7, 11 o 13 de Belkan, éste comenzará a
-dirigirse hacia ellos para así tener el mapa guardado cuanto antes.
+dirigirse hacia ellos para así tener el mapa guardado cuanto antes.  
 Esta función de búsqueda también se usa para los objetos y las puertas. En el caso de los
 objetos, solo los busca cuando ya ha encontrado el GPS y hay espacio en la mochila, y en
-el de las puertas, cuando el objeto activo sea una llave.
+el de las puertas, cuando el objeto activo sea una llave.  
 
 ## Funciones auxiliares
 
 ### Girar
 En esta función se engloba todo el código necesario para decidir hacia dónde girar y para
-actualizar la variable de giro aleatorio.
+actualizar la variable de giro aleatorio.  
 Cuando queden 100 puntos de vida, o menos, la variable de giro aleatorio tendrá valores
 más pequeños para girar más veces y descubrir más mapa con los últimos puntos de
 vida.
+
 ```C++
 Action ComportamientoJugador::Girar(Sensores sensores){
 	Action accion;
@@ -81,6 +82,7 @@ Action ComportamientoJugador::Girar(Sensores sensores){
 ### guardarVisitado
 Con esta función se guarda toda la información de los sensores de terreno (desde 0 hasta
 15) en mapaResultado.
+
 ```C++
 void ComportamientoJugador::guardarVisitado(Sensores sensores){
 	mapaResultado[fil][col] = sensores.terreno[0];
@@ -169,16 +171,17 @@ void ComportamientoJugador::guardarVisitado(Sensores sensores){
 
 ### Buscar
 A esta función se le pasan los sensores y el elemento que se quiere buscar. Este
-elemento puede ser un punto de GPS, una puerta o un objeto.
+elemento puede ser un punto de GPS, una puerta o un objeto.  
 Se comprueban los sensores de terreno 1, 3, 5, 7, 11 y 13, y según en cuál se encuentre
-elemento a buscar se activarán unos bool u otros.
+elemento a buscar se activarán unos bool u otros.  
 En el caso del GPS, lo buscará cuando todavía no lo haya encontrado, para empezar a
-guardar mapa cuanto antes.
+guardar mapa cuanto antes.  
 Los objetos los buscará cuando tenga sitio en la mochila y ya haya encontrado el GPS,
-dándole así más prioridad al GPS.
+dándole así más prioridad al GPS.  
 Y las puertas las buscará siempre que tenga una llave activa, ya que si reaparece
 después de morir dentro de una habitación cerrada por una puerta, cuando consiga la
-llave, podrá salir y buscar un GPS.
+llave, podrá salir y buscar un GPS.  
+
 ```C++
 void ComportamientoJugador::Buscar(Sensores sensores, char QueBuscas){
 	switch(QueBuscas){
@@ -283,6 +286,7 @@ void ComportamientoJugador::Buscar(Sensores sensores, char QueBuscas){
 
 ### HayObjeto
 Simplemente comprueba si hay un objeto justo delante de Belkan.
+
 ```C++
 bool ComportamientoJugador::HayObjeto(Sensores sensores){
 	return (sensores.superficie[2] == '0' || sensores.superficie[2] == '1' || sensores.superficie[2] == '2' || sensores.superficie[2] == '3');
@@ -291,6 +295,7 @@ bool ComportamientoJugador::HayObjeto(Sensores sensores){
 
 ### PuedeAvanzar
 Se comprueba si delante de Belkan hay terreno por el que pueda avanzar.
+
 ```C++
 bool ComportamientoJugador::PuedeAvanzar(Sensores sensores){
 	return ((sensores.terreno[2] == 'T' || sensores.terreno[2] == 'S' || sensores.terreno[2] == 'K') && (sensores.superficie[2] == '_'));
@@ -298,9 +303,9 @@ bool ComportamientoJugador::PuedeAvanzar(Sensores sensores){
 ```
 
 ### BuscarEnMochila
-Cuando se encuentre con agua, bosque o una puerta delante, Belkan buscará en su
-mochila si tiene el objeto necesario. Si tiene el objeto necesario en su mochila, comenzará
-a tirar objetos hasta que se active el deseado y pueda avanzar.
+Cuando se encuentre con agua, bosque o una puerta delante, Belkan buscará en su mochila si tiene el objeto necesario. Si tiene el objeto necesario en su
+mochila, comenzará a tirar objetos hasta que se active el deseado y pueda avanzar.
+
 ```C++
 bool ComportamientoJugador::BuscarEnMochila(Sensores sensores){
 	bool tirarObjetos = false;
@@ -350,6 +355,7 @@ bool ComportamientoJugador::BuscarEnMochila(Sensores sensores){
 ### SituacionIdonea
 Se da cuando tiene un objeto activo que puede usar para avanzar por el agua o el bosque
 o abrir una puerta. Esta función únicamente comprueba que se de esa situación.
+
 ```C++
 bool ComportamientoJugador::SituacionIdonea(Sensores sensores){
 	return (sensores.terreno[2] == 'A' && objetoMano == '1') || (sensores.terreno[2] == 'B' && objetoMano == '2') || (sensores.terreno[2] == 'D' && objetoMano == '3');
@@ -358,6 +364,7 @@ bool ComportamientoJugador::SituacionIdonea(Sensores sensores){
 
 ### reinicio
 Devuelve a todas las variables a su valor inicial y vacía la mochila.
+
 ```C++
 void ComportamientoJugador::reinicio(Sensores sensores){
 	brujula = 0;
@@ -399,13 +406,13 @@ actualizar la situación de éste.
 
 # Los extraños mundos de Belkan II
 
-Para empezar, comenzaré con la explicación de los cambios realizados a la parte que se
-entregó en la práctica anterior. Más adelante pasaré a explicar el método deliberativo, su
-algoritmo y los métodos auxiliares asociados a él.
+Para empezar, comenzaré con la explicación de los cambios realizados a la parte que se 
+entregó en la práctica anterior. Más adelante pasaré a explicar el
+método deliberativo, su algoritmo y los métodos auxiliares asociados a él.
 
 ## Cambios introducidos
 Lo más importante en esta parte (que se centra especialmente en el método think) es toda
-la parte relacionada con la ejecución de los planes.
+la parte relacionada con la ejecución de los planes.  
 Lo primero que hace con los planes, si nos guiamos por el orden en el que está escrito, es
 que si hay un obstáculo (un objeto, un aldeano o un lobo) modifique el plan en lo
 necesario para adaptarse a la situación. Lo siguiente que se hace con los planes es
@@ -414,27 +421,27 @@ búsqueda de regalos solo se hará si no tiene ningún regalo, no está ejecutan
 plan y, por supuesto, si tiene algún conocimiento de su entorno. La de reyes se hace de
 una forma similar, solo la hará cuando tenga regalos, no esté ejecutando ningún plan,
 tenga conocimiento del entorno y que entre ese conocimiento esté la posición de un rey.
-Lo último relacionado con los planes de este método es la ejecución.
+Lo último relacionado con los planes de este método es la ejecución.  
 A parte de los planes, el otro cambio en el método think ha sido que ya no busca objetos
-ni puertas, solo puntos de GPS.
+ni puertas, solo puntos de GPS.  
 En reiniciar también ha habido un cambio significativo, a parte de la reinicialización de las
 nuevas variables introducidas. En esta práctica, cuando se entre en reiniciar por última
 vez comprueba el mapa y si hay un elemento que predomine en más de un 75%, pintará
-el resto del mapa que no haya sido descubierto a ese mismo color.
+el resto del mapa que no haya sido descubierto a ese mismo color.  ######
 Finalmente, el último cambio viene en el método Buscar, que ahora hace uso de los
-planes y ha extendido su capacidad a todos los sensores de Belkan.
+planes y ha extendido su capacidad a todos los sensores de Belkan
 
 ## pathFinding
 Para el método pathFinding se ha utilizado el algoritmo de búsqueda con información A*.
 Este algoritmo se basa en consultar el coste que presenta viajar desde un nodo hasta el
 destino. El coste se basa en una heurística que cuenta las casillas que hay que andar
-para llegar a destino.
+para llegar a destino.  
 Primero guardamos el nodo con menor coste en cerrados (la lista con la solución) y lo
 borramos de abiertos (la lista de nodos posibles). A continuación asignamos el coste a los
 nodos vecinos y comprobamos si son candidatos para entrar en abiertos, esto sucede
-cuando no están en ninguna de las dos listas y a la vez son transitables.
+cuando no están en ninguna de las dos listas y a la vez son transitables.  
 A la vez, se va generando una lista de acciones que terminará siendo el plan que seguirá
-Belkan para llegar a su destino por el camino más óptimo posible.
+Belkan para llegar a su destino por el camino más óptimo posible.  
 
 ```C++
 bool ComportamientoJugador::pathFinding(const estado &origen, const estado &destino, list<Action> &plan){
